@@ -8,14 +8,19 @@ public class GameManager : MonoBehaviour {
     public static bool startQuiz = false;
     public GameObject quizWindow;
     public GameObject feedbackWindow;
+    public GameObject gameWinWindow;
     public GameObject toggle1, toggle2, toggle3, toggle4;
+
+    int correctCount = 0;
+    bool gameWin = false;
     // Use this for initialization
 	void Start () {
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(startQuiz);
+        Debug.Log(gameWin);
         if (!startQuiz)
         {
             quizWindow.SetActive(false);
@@ -25,7 +30,16 @@ public class GameManager : MonoBehaviour {
         {
             quizWindow.SetActive(true);
         }
-	}
+        //if game win = true, open up game win window
+        if (gameWin)
+        {
+            gameWinWindow.SetActive(true);
+        }
+        else
+        {
+            gameWinWindow.SetActive(false);
+        }
+    }
 
     public void SubmitButtonPressed() {
         feedbackWindow.SetActive(true);
@@ -49,11 +63,23 @@ public class GameManager : MonoBehaviour {
         toggle4.GetComponent<Toggle>().isOn = false;
         if (answeredRight)
         {
+            if (correctCount >= 2)
+            {
+                gameWin = true;
+            }
             startQuiz = false;
+            correctCount++;
         }
         else
         {
             feedbackWindow.SetActive(false);
         }
+        //if the player answered all questions correctly, set game win to true
+        
+    }
+
+    public void ReplayButton()
+    {
+        Application.LoadLevel(0);
     }
 }

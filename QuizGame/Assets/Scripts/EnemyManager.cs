@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour {
     float speed;
 	// Use this for initialization
 	void Start () {
-        speed = 2f;
+        speed = 0.7f;
 	}
 	
 	// Update is called once per frame
@@ -17,14 +17,14 @@ public class EnemyManager : MonoBehaviour {
         //Get position
         Vector2 position = transform.position;
         //Compute the enemy new position
-        position = new Vector2(position.x + speed*Time.deltaTime, position.y);
+        position = new Vector2(position.x - speed*Time.deltaTime, position.y);
         //Update position   
         transform.position = position;
 
-        if (transform.position.x > 4f)
+        if (transform.position.x < -3.7f)
         {
             
-            transform.position = new Vector2(-4f, Random.Range(-1f, 2.4f));
+            transform.position = new Vector2(3.8f, Random.Range(-1.55f, -1.3f));
         }
 	}
     void OnMouseDown(){
